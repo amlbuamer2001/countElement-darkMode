@@ -8,14 +8,14 @@ function countElements() {
     var countClassName = document.getElementsByClassName(className).length;
     var countId = document.getElementById(id) ? 'True' : 'False';
     var countName = document.getElementsByName(name).length;
-    var output = document.getElementById('output')
+    var output = document.getElementById('output');
     output.innerHTML = `Number Of ${tagName}: ${countTagName} <br>
         Class ${className}: ${countClassName} <br>
         Id ${id}: ${countId} <br>
         Name ${name}: ${countName}`;
-    output.classList.add('show')
-
+    output.classList.add('show');
 }
+
 function toggleDarkMode() {
     var body = document.body;
     var container = document.querySelector('.container');
@@ -31,13 +31,35 @@ function toggleDarkMode() {
     output.classList.toggle('dark-mode');
 
     if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('darkMode', 'enabled');
         toggleBtn.innerHTML = 'Switch to Light Mode';
-        toggleBtn.style.backgroundColor='#ddd'
-        toggleBtn.style.color='#444'
+        toggleBtn.style.backgroundColor = '#ddd';
+        toggleBtn.style.color = '#444';
     } else {
+        localStorage.setItem('darkMode', 'disabled');
         toggleBtn.innerHTML = 'Switch to Dark Mode';
-        toggleBtn.style.backgroundColor='#444'
-        toggleBtn.style.color='#fff'
+        toggleBtn.style.backgroundColor = '#444';
+        toggleBtn.style.color = '#fff';
     }
-
 }
+
+window.onload = function () {
+    if (localStorage.getItem('darkMode') == 'enabled') {
+        var body = document.body;
+        var container = document.querySelector('.container');
+        var inputs = document.querySelectorAll('input');
+        var button = document.querySelector('button');
+        var output = document.querySelector('.output');
+        var toggleBtn = document.querySelector('.toggle-btn');
+
+        body.classList.add('dark-mode');
+        container.classList.add('dark-mode');
+        inputs.forEach(input => input.classList.add('dark-mode'));
+        button.classList.add('dark-mode');
+        output.classList.add('dark-mode');
+        
+        toggleBtn.innerHTML = 'Switch to Light Mode';
+        toggleBtn.style.backgroundColor = '#ddd';
+        toggleBtn.style.color = '#444';
+    }
+};
